@@ -59,8 +59,8 @@ gulp.task('useref', function() {
         //.pipe(assets)
         .pipe(useref())
         .pipe(gulpif('*.js', uglify()))
-        .pipe(gulpif('*.css', minifyCSS({compatibility: 'ie8'})
-            .pipe(autoprefixer('last 5 versions'))))
+        .pipe(gulpif('*.css', autoprefixer()))
+        .pipe(gulpif('*.css', minifyCSS({compatibility: 'ie8'})))
         //.pipe(assets.restore())
         .pipe(gulp.dest('dist'));
 });
