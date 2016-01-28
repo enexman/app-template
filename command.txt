@@ -1,0 +1,2 @@
+npm i gulp wiredep gulp-useref gulp-minify-css gulp-concat-css gulp-imagemin gulp-size gulp-filter gulp-uglify gulp-clean gulp-if gulp-autoprefixer gulp-sass -D
+npm i browser-sync -D
