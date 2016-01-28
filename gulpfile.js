@@ -15,14 +15,20 @@ var gulp = require("gulp"),
 
 
 //===== Синхронизация -->
-// Запускаем локальный сервер
-gulp.task('sync', ['sass'], function() {
+gulp.task('sync', ['js', 'sass'], function() {
     browserSync.init({
         notify: false,
         server: "./app"
     });
+    gulp.watch("app/js/*js", ['js']);
     gulp.watch("app/css/*.scss", ['sass']);
     gulp.watch("app/*.html").on('change', browserSync.reload);
+});
+
+gulp.task('js', function () {
+    return gulp.src('app/js/*js')
+        .pipe(gulp.dest('app/js'))
+        .pipe(browserSync.stream());
 });
 
 // Компилируем sass в css
