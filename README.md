@@ -1,1 +1,1 @@
-# templete by Murat
+# template by Murat
