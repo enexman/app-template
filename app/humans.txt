@@ -3,9 +3,13 @@
 
 # TEAM
 
-    Murat Barkinkhoev -- Web-developer -- http://vk.com/mbarkizrael
+    <name> -- <role> -- <vk>
 
+# THANKS
+
+    <name>
 
 # TECHNOLOGY COLOPHON
 
-    CSS3, HTML5, jQuery, Normalize.css
+    CSS3, HTML5
+    Apache Server Configs, jQuery, Modernizr, Normalize.css
