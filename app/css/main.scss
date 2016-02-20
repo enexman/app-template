@@ -1,0 +1,254 @@
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+$bg-1: #404040;
+$bg-2: #101fff;
+$bg-3: #ffc230;
+$text: #4E8298;
+$menu: #BC514B;
+$menuOver: white;
+$menuActive: red;
+$skills: #2C98C7;
+$skillsText: white;
+$nav: #343434;
+
+
+
+html, body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  font-family: Arial, Calibri;
+  font-size: 17px;
+}
+.wrapper {
+  height: 100%;
+  overflow: hidden;
+}
+.main-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  top: 0;
+  transition: top 1.4s;
+}
+.page {
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  &__section-1 {
+    background-color: $bg-1;
+    overflow: hidden;
+    z-index: 100;
+  }
+
+  &__section-2 {
+    background-color: $bg-2;
+    overflow: hidden;
+    z-index: 10;
+  }
+
+  &__section-3 {
+    background-color: $bg-3;
+    z-index: 1;
+  }
+}
+.section-1 {
+  min-width: 900px;
+  max-width: 1280px;
+  padding: 0 75px;
+  position: absolute;
+  height: 500px;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+
+  &__photo {
+    margin-top: 16px;
+    margin-right: 5px;
+    height: 500px;
+    width: 250px;
+    background: url("../img/me.jpg");
+    float: left;
+  }
+
+  &__about-me {
+    text-align: justify;
+    color: $text;
+
+    &-tittle {
+      display: block;
+      margin-top: 20px;
+    }
+  }
+
+  &__side {
+    margin-top: 17px;
+    margin-right: 6px;
+    font-weight: 400;
+    color: white;
+    text-align: center;
+    writing-mode: vertical-rl;
+    float: left;
+    display: inline-block;
+    height: 85px;
+    width: 20px;
+    background-color: darken($skills, 10);
+  }
+}
+
+.skills {
+  @include clearfix;
+  height: 82px;
+
+  &__tittle {
+    background-color: #00AA00;
+  }
+
+  &__list {
+    list-style: none;
+
+    &__item {
+      float: left;
+      display: inline-block;
+      padding: 10px 25px;
+      margin: 0 5px 5px 0;
+      background: $skills;
+      font-weight: 600;
+      color: $skillsText;
+    }
+
+  }
+
+}
+
+
+.nav {
+  overflow: hidden;
+  height: 100%;
+  background-color: rgba($nav, 0.7);
+  position: absolute;
+  top: 0;
+  right:0;
+  z-index: 1000;
+
+  &__list {
+    position: relative;
+    top: 40%;
+    list-style: none;
+    padding: 0 20px;
+  }
+
+  &__item {
+    background-color: $menu;
+    margin-bottom: 20px;
+    height: 30px;
+    width: 30px;
+    border-radius: 20px;
+    cursor: pointer;
+
+    &_active {
+      //background-color: $menuActive;
+    }
+    &:hover {
+      background-color: $menuOver;
+    }
+  }
+}
+
+.section-2 {
+  @extend .section-1;
+  width: 900px;
+
+  &__tittle {
+    text-align: center;
+    font-size: 46px;
+    color: white;
+  }
+}
+
+.slide-show {
+
+  &__list {
+    padding: 0;
+    float: left;
+    list-style: none;
+  }
+
+  &__item {
+    //padding-right: 5px;
+  }
+
+  &__link {
+
+  }
+
+  &__img {
+    height: 100px;
+    width: 150px;
+    overflow: hidden;
+  }
+
+  &__display {
+    padding-left: 25px;
+    padding-top: 26px;
+    height: 400px;
+    overflow: hidden;
+  }
+}
+
+.section-3 {
+  @extend .section-1;
+  height: 300px;
+}
+
+.contacts {
+  text-align: center;
+
+  &__tittle {
+    margin: 0;
+    padding: 0;
+    font-size: 46px;
+    color: $menu;
+  }
+
+  &__message {
+    margin: 0 0 40px 0;
+    padding: 0;
+  }
+
+  &__email-label {
+    margin: 0;
+    padding: 0;
+    font-size: 17px;
+  }
+
+  &__email-inner {
+    margin: 0 0 30px 0;
+    padding: 0;
+    font-size: 32px;
+    font-weight: 600;
+  }
+
+  &__phone-label {
+    margin: 0;
+    padding: 0;
+  }
+
+  &__phone-number {
+    margin: 0;
+    padding: 0;
+    font-size: 32px;
+    font-weight: 600;
+  }
+
+}
+

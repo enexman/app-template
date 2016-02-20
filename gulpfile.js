@@ -11,7 +11,10 @@ var gulp = require("gulp"),
     gulpif = require('gulp-if'),
     autoprefixer = require('gulp-autoprefixer'),
     browserSync = require('browser-sync').create(),
-    sass = require('gulp-sass');
+    sass = require('gulp-sass'),
+    gutil = require( 'gulp-util'),
+    ftp = require( 'vinyl-ftp' );
+
 
 
 //===== Синхронизация -->
@@ -65,7 +68,7 @@ gulp.task('useref', function() {
         //.pipe(assets)
         .pipe(useref())
         .pipe(gulpif('*.js', uglify()))
-        .pipe(gulpif('*.css', autoprefixer()))
+        .pipe(gulpif('*.css', autoprefixer('last 6 versions')))
         .pipe(gulpif('*.css', minifyCSS({compatibility: 'ie8'})))
         //.pipe(assets.restore())
         .pipe(gulp.dest('dist'));
@@ -108,3 +111,28 @@ gulp.task('build', ['clean'], function() {
     gulp.start('dist');
 });
 // gulp build  --сборка проекта
+
+
+// gulp deploy - сливаем все на сервер
+gulp.task( 'deploy', function () {
+
+    var conn = ftp.create( {
+        host:     'fatfutor.esy.es',
+        user:     'u263403265',
+        password: 'avatar700',
+        parallel: 10,
+        log:      gutil.log
+    } );
+
+    var globs = [
+        'dist/**/*'
+    ];
+
+    // using base = '.' will transfer everything to /public_html correctly
+    // turn off buffering in gulp.src for best performance
+
+    return gulp.src( globs, { base: 'dist/', buffer: false } )
+        //.pipe( conn.newer( '/public_html' ) ) // only upload newer files
+        .pipe( conn.dest( '/public_html' ) );
+
+} );
