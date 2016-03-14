@@ -11,10 +11,13 @@ var gulp = require("gulp"),
     gulpif = require('gulp-if'),
     autoprefixer = require('gulp-autoprefixer'),
     browserSync = require('browser-sync').create(),
-    sass = require('gulp-sass');
+    sass = require('gulp-sass'),
+    gutil = require( 'gulp-util'),
+    ftp = require( 'vinyl-ftp' );
 
 
-//===== Синхронизация -->
+
+//===== Синхронизация 	           << gulp sync >>   =====//
 gulp.task('sync', ['js', 'sass'], function() {
     browserSync.init({
         notify: false,
@@ -38,19 +41,18 @@ gulp.task('sass', function() {
         .pipe(gulp.dest("app/css"))
         .pipe(browserSync.stream());
 });
-// gulp sync
 
 
-//===== Подключаем ссылки из bower
+
+//===== Подключаем ссылки из bower  << gulp wiredep >> =====//
 gulp.task('wiredep', function() {
     gulp.src('app/*.html')
         .pipe(wiredep())
-        .pipe(gulp.dest('app/'))
+        .pipe(gulp.dest('app/'));
 });
-// gulp wiredep
 
 
-//===== Сборка -->
+//===== Сборка                      << gulp build >> =====//
 // Очистка папки
 gulp.task('clean', function() {
     return gulp.src('dist')
@@ -65,7 +67,7 @@ gulp.task('useref', function() {
         //.pipe(assets)
         .pipe(useref())
         .pipe(gulpif('*.js', uglify()))
-        .pipe(gulpif('*.css', autoprefixer()))
+        .pipe(gulpif('*.css', autoprefixer('last 6 versions')))
         .pipe(gulpif('*.css', minifyCSS({compatibility: 'ie8'})))
         //.pipe(assets.restore())
         .pipe(gulp.dest('dist'));
@@ -107,4 +109,28 @@ gulp.task('dist', ['useref', 'images', 'fonts', 'extras'], function() {
 gulp.task('build', ['clean'], function() {
     gulp.start('dist');
 });
-// gulp build  --сборка проекта
+
+
+//===== Cливаем все на сервер     << gulp deploy >> =====//
+gulp.task( 'deploy', function () {
+
+    var conn = ftp.create( {
+        host:     'хостинг',
+        user:     'имя пользователя',
+        password: 'пароль',
+        parallel: 10,
+        log:      gutil.log
+    } );
+
+    var globs = [
+        'dist/**/*'
+    ];
+
+    // using base = '.' will transfer everything to /public_html correctly
+    // turn off buffering in gulp.src for best performance
+
+    return gulp.src( globs, { base: 'dist/', buffer: false } )
+        //.pipe( conn.newer( '/public_html' ) ) // only upload newer files
+        .pipe( conn.dest( '/public_html' ) );
+
+} );
