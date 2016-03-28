@@ -3,7 +3,9 @@
 
 # TEAM
 
-    <name> -- <role> -- <vk>
+    Murat Barkinkhoev
+    murat-bark@yandex.ru
+    Magas, Russia.
 
 # THANKS
 
