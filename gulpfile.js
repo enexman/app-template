@@ -1,9 +1,8 @@
 var gulp = require("gulp"),
     wiredep = require('wiredep').stream,
     useref = require('gulp-useref'),
-    minifyCSS = require('gulp-minify-css'),
     concatCss = require('gulp-concat-css'),
-    imagemin = require('gulp-imagemin'),
+    csso = require('gulp-csso'),
     size = require('gulp-size'),
     filter = require('gulp-filter'),
     uglify = require('gulp-uglify'),
@@ -15,10 +14,8 @@ var gulp = require("gulp"),
     gutil = require( 'gulp-util'),
     ftp = require( 'vinyl-ftp' );
 
-
-
 //===== Синхронизация 	           << gulp sync >>   =====//
-gulp.task('sync', ['js', 'sass'], function() {
+gulp.task('server', ['js', 'sass'], function() {
     browserSync.init({
         notify: false,
         server: "./app"
@@ -36,13 +33,11 @@ gulp.task('js', function () {
 
 // Компилируем sass в css
 gulp.task('sass', function() {
-    return gulp.src("app/css/*.scss")
+    return gulp.src("app/css/style.scss")
         .pipe(sass())
         .pipe(gulp.dest("app/css"))
         .pipe(browserSync.stream());
 });
-
-
 
 //===== Подключаем ссылки из bower  << gulp wiredep >> =====//
 gulp.task('wiredep', function() {
@@ -62,13 +57,15 @@ gulp.task('clean', function() {
 // Переносим html, css, js в папку dist
 gulp.task('useref', function() {
     //var assets = useref.assets();
-
     return gulp.src('app/*.html')
         //.pipe(assets)
         .pipe(useref())
         .pipe(gulpif('*.js', uglify()))
+        .pipe(gulpif('*.css', csso({restructure: true,
+                                    sourceMap: false,
+                                    debug: true
+                                    })))
         .pipe(gulpif('*.css', autoprefixer('last 6 versions')))
-        .pipe(gulpif('*.css', minifyCSS({compatibility: 'ie8'})))
         //.pipe(assets.restore())
         .pipe(gulp.dest('dist'));
 });
@@ -76,17 +73,14 @@ gulp.task('useref', function() {
 // Перенос шрифтов
 gulp.task('fonts', function() {
     gulp.src('app/fonts/*')
-        .pipe(filter(['*.eot','*.svg','*.ttf','*.woff','*.woff2']))
+        .pipe(filter(['*.svg','*.woff','*.woff2']))
         .pipe(gulp.dest(('dist/fonts/')));
 });
 
 // Картинки
 gulp.task('images', function() {
     return gulp.src('app/img/**/*')
-        .pipe(imagemin({
-            progressive: true,
-            interlaced: true
-        }))
+        .pipe(filter(['*.jpg','*.gif','*.png','*.svg']))
         .pipe(gulp.dest('dist/img'));
 });
 
@@ -109,7 +103,6 @@ gulp.task('dist', ['useref', 'images', 'fonts', 'extras'], function() {
 gulp.task('build', ['clean'], function() {
     gulp.start('dist');
 });
-
 
 //===== Cливаем все на сервер     << gulp deploy >> =====//
 gulp.task( 'deploy', function () {
