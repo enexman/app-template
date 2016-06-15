@@ -24,7 +24,7 @@ gulp.task('sync', ['js', 'sass'], function() {
         server: "./app"
     });
     gulp.watch("app/js/*js", ['js']);
-    gulp.watch("app/css/*.scss", ['sass']);
+    gulp.watch("app/css/style.scss", ['sass']);
     gulp.watch("app/*.html").on('change', browserSync.reload);
 });
 
@@ -36,7 +36,7 @@ gulp.task('js', function () {
 
 // Компилируем sass в css
 gulp.task('sass', function() {
-    return gulp.src("app/css/*.scss")
+    return gulp.src("app/css/style.scss")
         .pipe(sass())
         .pipe(gulp.dest("app/css"))
         .pipe(browserSync.stream());
@@ -68,7 +68,7 @@ gulp.task('useref', function() {
         .pipe(useref())
         .pipe(gulpif('*.js', uglify()))
         .pipe(gulpif('*.css', autoprefixer('last 6 versions')))
-        .pipe(gulpif('*.css', minifyCSS({compatibility: 'ie8'})))
+        .pipe(gulpif('*.css', minifyCSS({compatibility: 'ie10'})))
         //.pipe(assets.restore())
         .pipe(gulp.dest('dist'));
 });
@@ -76,7 +76,7 @@ gulp.task('useref', function() {
 // Перенос шрифтов
 gulp.task('fonts', function() {
     gulp.src('app/fonts/*')
-        .pipe(filter(['*.eot','*.svg','*.ttf','*.woff','*.woff2']))
+        .pipe(filter(['*.svg','*.woff','*.woff2']))
         .pipe(gulp.dest(('dist/fonts/')));
 });
 
