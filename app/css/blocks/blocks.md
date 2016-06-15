@@ -1,5 +1,5 @@
 Структура файлов:
-
+```
 css/
 | - style.css
 | - style.scss
