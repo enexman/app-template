@@ -27,10 +27,11 @@ npm run deploy - отправка содержимого папки dist на х
 ├── dist/                      # 
 │   ├── css/                   # 
 │   │   └── style.min.css      # 
+│   ├── fonts/                 # 
 │   ├── images/                # 
 │   ├── js/                    # 
 │   │   └── main.min.js        # 
-│   ├── fonts/                 # 
+│   ├── .htaccess              #
 │   ├── humans.txt             # 
 │   ├── robots.txt             # 
 │   ├── 404.html               # 
