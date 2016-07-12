@@ -12,7 +12,13 @@ var gulp = require("gulp"),
     browserSync = require('browser-sync').create(),
     sass = require('gulp-sass'),
     gutil = require( 'gulp-util'),
-    ftp = require( 'vinyl-ftp' );
+    ftp = require( 'vinyl-ftp'),
+    imagemin = require("gulp-imagemin"),
+    svgstore = require("gulp-svgstore"),
+    svgmin = require("gulp-svgmin"),
+    rename = require("gulp-rename"),
+    run = require("run-sequence");
+
 
 //===== Синхронизация 	           << gulp sync >>   =====//
 gulp.task('server', ['js', 'sass'], function() {
@@ -81,7 +87,21 @@ gulp.task('fonts', function() {
 gulp.task('images', function() {
     return gulp.src('app/img/**/*')
         .pipe(filter(['*.jpg','*.gif','*.png','*.svg']))
+        .pipe(imagemin([
+            imagemin.optipng({optimizationLevel: 3}),
+            imagemin.jpegtran({progressive: true})
+        ]))
         .pipe(gulp.dest('dist/img'));
+});
+
+gulp.task("symbols", function() {
+    return gulp.src("app/img/icons/*.svg")
+        .pipe(svgmin())
+        .pipe(svgstore({
+            inlineSvg: true
+        }))
+        .pipe(rename("symbols.svg"))
+        .pipe(gulp.dest("app/img"));
 });
 
 // Остальные файлы, такие как favicon.ico и пр.
