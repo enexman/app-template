@@ -12,7 +12,13 @@ var gulp = require("gulp"),
     browserSync = require('browser-sync').create(),
     sass = require('gulp-sass'),
     gutil = require( 'gulp-util'),
-    ftp = require( 'vinyl-ftp' );
+    ftp = require( 'vinyl-ftp'),
+    imagemin = require("gulp-imagemin"),
+    svgstore = require("gulp-svgstore"),
+    svgmin = require("gulp-svgmin"),
+    rename = require("gulp-rename"),
+    run = require("run-sequence");
+
 
 //===== Синхронизация 	           << gulp sync >>   =====//
 gulp.task('server', ['js', 'sass'], function() {
@@ -35,6 +41,13 @@ gulp.task('js', function () {
 gulp.task('sass', function() {
     return gulp.src("app/css/style.scss")
         .pipe(sass())
+        .pipe(autoprefixer({browsers: [
+            "last 1 version",
+            "last 2 Chrome versions",
+            "last 2 Firefox versions",
+            "last 2 Opera versions",
+            "last 2 Edge versions"
+        ]}))
         .pipe(gulp.dest("app/css"))
         .pipe(browserSync.stream());
 });
@@ -62,10 +75,9 @@ gulp.task('useref', function() {
         .pipe(useref())
         .pipe(gulpif('*.js', uglify()))
         .pipe(gulpif('*.css', csso({restructure: true,
-                                    sourceMap: false,
-                                    debug: true
-                                    })))
-        .pipe(gulpif('*.css', autoprefixer('last 6 versions')))
+            sourceMap: false,
+            debug: true
+        })))
         //.pipe(assets.restore())
         .pipe(gulp.dest('dist'));
 });
@@ -79,13 +91,26 @@ gulp.task('fonts', function() {
 
 // Картинки
 gulp.task('images', function() {
-    return gulp.src('app/img/**/*')
+    return gulp.src('app/img/*')
         .pipe(filter(['*.jpg','*.gif','*.png','*.svg']))
+        .pipe(imagemin([
+            imagemin.optipng({optimizationLevel: 3}),
+            imagemin.jpegtran({progressive: true})
+        ]))
         .pipe(gulp.dest('dist/img'));
 });
 
-// Остальные файлы, такие как favicon.ico и пр.
-gulp.task('extras', function() {
+gulp.task("symbols", function() {
+    return gulp.src("app/img/icons/*.svg")
+        //.pipe(svgmin())
+        .pipe(svgstore({
+            inlineSvg: true
+        }))
+        .pipe(rename("symbols.svg"))
+        .pipe(gulp.dest("app/img"));
+});
+
+gulp.task('copy', function() {
     return gulp.src([
             'app/*.*',
             '!app/*.html'
@@ -93,16 +118,36 @@ gulp.task('extras', function() {
         .pipe(gulp.dest('dist'));
 });
 
-// Сборка и вывод размера содержимого папки dist
-gulp.task('dist', ['useref', 'images', 'fonts', 'extras'], function() {
+gulp.task('dist', function() {
     return gulp.src('dist/**/*')
         .pipe(size({title: 'build'}));
 });
 
-// Собираем папку dist
-gulp.task('build', ['clean'], function() {
-    gulp.start('dist');
+// копируем исходники js и css
+gulp.task('dev-source', function() {
+    return gulp.src([
+            'app/css/style.css',
+            'app/js/main.js'
+        ], {
+            base: "app/."
+        })
+        .pipe(gulp.dest('dist/'));
 });
+
+// Сборка и вывод размера содержимого папки dist
+gulp.task("build", function(fn) {
+    run(
+        "clean",
+        "useref",
+        "images",
+        "fonts",
+        "copy",
+        "dev-source",
+        "dist",
+        fn
+    );
+});
+
 
 //===== Cливаем все на сервер     << gulp deploy >> =====//
 gulp.task( 'deploy', function () {
