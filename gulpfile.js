@@ -16,7 +16,7 @@ var gulp = require("gulp"),
     imagemin = require("gulp-imagemin"),
     svgstore = require("gulp-svgstore"),
     svgmin = require("gulp-svgmin"),
-//rename = require("gulp-rename"),
+    rename = require("gulp-rename"),
     run = require("run-sequence");
 
 
@@ -102,7 +102,7 @@ gulp.task('images', function() {
 
 gulp.task("symbols", function() {
     return gulp.src("app/img/icons/*.svg")
-        .pipe(svgmin())
+        //.pipe(svgmin())
         .pipe(svgstore({
             inlineSvg: true
         }))
