@@ -85,7 +85,7 @@ gulp.task('fonts', function() {
 
 // Картинки
 gulp.task('images', function() {
-    return gulp.src('app/img/**/*')
+    return gulp.src('app/img/*')
         .pipe(filter(['*.jpg','*.gif','*.png','*.svg']))
         .pipe(imagemin([
             imagemin.optipng({optimizationLevel: 3}),
