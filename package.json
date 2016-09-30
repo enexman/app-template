@@ -30,6 +30,7 @@
     "build": "gulp build",
     "links": "gulp wiredep",
     "sprites": "gulp symbols",
-    "deploy": "gulp deploy"
+    "deploy": "gulp deploy",
+    "webpack": "webpack"
   }
 }
