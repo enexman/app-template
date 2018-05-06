@@ -2,10 +2,10 @@ const path = require('path');
 
 module.exports = {
   mode: 'none',
-  entry: "./app/js-src/main.js",
+  entry: './source/js-src/script.js',
   output: {
-    filename: "main.js",
-    path: path.resolve(__dirname, './app/js')
+    filename: 'script.js',
+    path: path.resolve(__dirname, './source/js')
   },
-  devtool: "source-map"
+  devtool: 'source-map'
 };

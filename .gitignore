@@ -1,4 +1,4 @@
+build
 node_modules
-app/bower
-dist
 .idea
+source/js

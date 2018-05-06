@@ -1,39 +1,35 @@
-# template by Murat v: 0.2.0
+# template by Murat v: 1.0.2
 
 ### Запуск проекта
 ```
 npm i - установка пакетов
-npm run links - подключение файлов из папки bower (bower list --path)
 npm start - запуск сервера
-npm run build - сборка проекта в директорию dist
-npm run deploy - отправка содержимого папки dist на хостинг
+npm run build - сборка проекта в папку build
+npm run watch - сборка js файлов из js-src в папку js
+npm run deploy - отправка содержимого папки build на хостинг
 ```
 
 ### Структура папок и файлов
 ```
-├── app/                       # 
-│   ├── css/                   # 
-│   │   └── blocks/            # 
-│   │   │   └── block.scss     # 
+├── source/                    #
+│   ├── css/                   #
+│   │   └── blocks/            #
+│   │   │   └── block.scss     #
 |   |   ├── _mixins.scss       #
 |   |   ├── _scaffolding.scss  #
 |   |   ├── _variables.scss    #
 |   |   ├── style.scss         #
 |   |   └── style.css          #
-│   ├── fonts/                 # 
-│   ├── img/                   # 
-│   ├── js/                    # 
-│   │   └── main.js            # 
-├── dist/                      # 
-│   ├── css/                   # 
-│   │   └── style.min.css      # 
-│   ├── fonts/                 # 
-│   ├── img/                   # 
-│   ├── js/                    # 
-│   │   └── main.min.js        # 
-│   ├── .htaccess              #
-│   ├── humans.txt             # 
-│   ├── robots.txt             # 
-│   ├── 404.html               # 
-│   └── index.html             # 
-└── README.md                  # 
+│   ├── fonts/                 #
+│   ├── img/                   #
+│   ├── js/                    #
+│   │   └── main.js            #
+├── build/                     #
+│   ├── css/                   #
+│   │   └── style.min.css      #
+│   ├── fonts/                 #
+│   ├── img/                   #
+│   ├── js/                    #
+│   │   └── script.min.js      #
+│   └── index.html             #
+└── README.md                  #
