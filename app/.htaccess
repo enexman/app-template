@@ -1,5 +1,0 @@
-AddDefaultCharset UTF-8
-#DirectoryIndex index.html
-#Options +Indexes
-#IndexIgnore *.php
-ErrorDocument 404 404.html

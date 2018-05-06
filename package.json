@@ -23,6 +23,8 @@
     "gulp-util": "^3.0.7",
     "run-sequence": "^1.2.2",
     "vinyl-ftp": "^0.4.5",
+    "webpack": "^4.7.0",
+    "webpack-cli": "^2.1.2",
     "wiredep": "^3.0.0"
   },
   "scripts": {
@@ -31,6 +33,7 @@
     "links": "gulp wiredep",
     "sprites": "gulp symbols",
     "deploy": "gulp deploy",
-    "webpack": "webpack"
+    "build-js": "webpack -p",
+    "watch": "webpack --watch"
   }
 }
