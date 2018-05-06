@@ -1,4 +1,4 @@
-# template by Murat v: 1.0.2
+# template by Murat v: 1.0.3
 
 ### Запуск проекта
 ```

@@ -1,4 +1,4 @@
 build
 node_modules
 .idea
-source/js
+source/js/*.js

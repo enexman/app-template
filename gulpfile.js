@@ -1,7 +1,5 @@
 var gulp = require("gulp"),
-  // wiredep = require('wiredep').stream,
   useref = require('gulp-useref'),
-  // concatCss = require('gulp-concat-css'),
   csso = require('gulp-csso'),
   size = require('gulp-size'),
   filter = require('gulp-filter'),
@@ -50,13 +48,6 @@ gulp.task('sass', function() {
     .pipe(gulp.dest("source/css"))
     .pipe(browserSync.stream());
 });
-
-//===== Подключаем ссылки из bower =====//
-// gulp.task('wiredep', function() {
-//   gulp.src('source/*.html')
-//     .pipe(wiredep())
-//     .pipe(gulp.dest('source/'));
-// });
 
 //===== Сборка =====//
 // Очистка папки
@@ -121,17 +112,6 @@ gulp.task('dist', function() {
     .pipe(size({title: 'build'}));
 });
 
-// копируем исходники js и css
-// gulp.task('dev-source', function() {
-//   return gulp.src([
-//         'app/css/style.css',
-//         'app/js/main.js'
-//     ], {
-//         base: "app/."
-//     })
-//     .pipe(gulp.dest('dist/'));
-// });
-
 // Сборка и вывод размера содержимого папки build
 gulp.task("build", function(fn) {
   run(
@@ -140,7 +120,6 @@ gulp.task("build", function(fn) {
     "images",
     "fonts",
     "copy",
-    // "dev-source",
     "dist",
     fn
   );
