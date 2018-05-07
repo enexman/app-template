@@ -10,7 +10,6 @@ var gulp = require("gulp"),
   browserSync = require('browser-sync').create(),
   sass = require('gulp-sass'),
   gutil = require( 'gulp-util'),
-  ftp = require( 'vinyl-ftp'),
   imagemin = require("gulp-imagemin"),
   svgstore = require("gulp-svgstore"),
   svgmin = require("gulp-svgmin"),
@@ -124,26 +123,3 @@ gulp.task("build", function(fn) {
     fn
   );
 });
-
-//===== Cливаем все на сервер =====//
-gulp.task( 'deploy', function () {
-
-  var conn = ftp.create( {
-    host:     'хостинг',
-    user:     'имя пользователя',
-    password: 'пароль',
-    parallel: 10,
-    log:      gutil.log
-  } );
-
-  var globs = [
-    'build/**/*'
-  ];
-
-  // using base = '.' will transfer everything to /public_html correctly
-  // turn off buffering in gulp.src for best performance
-
-  return gulp.src( globs, { base: 'build/', buffer: false } )
-    //.pipe( conn.newer( '/public_html' ) ) // only upload newer files
-    .pipe( conn.dest( '/public_html' ) );
-} );
