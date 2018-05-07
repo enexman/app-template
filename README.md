@@ -1,4 +1,4 @@
-# template by Murat barkinkhoev v: 1.2.0
+# template by Murat Barkinkhoev v: 1.2.0
 
 ### Запуск проекта
 ```
