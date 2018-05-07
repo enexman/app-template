@@ -1,4 +1,4 @@
-# template by Murat v: 1.1.1
+# template by Murat v: 1.2.0
 
 ### Запуск проекта
 ```
@@ -7,6 +7,7 @@ npm start - запуск сервера
 npm run watch-js - сборка js файлов из js-src в папку js и слежение
 npm run test - проверка файлов
 npm run build - сборка проекта в папку build
+npm run deploy - сборка проекта в gh-pages
 ```
 
 ### Структура папок и файлов

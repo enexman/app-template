@@ -1,20 +1,20 @@
-var gulp = require("gulp"),
-  useref = require('gulp-useref'),
-  csso = require('gulp-csso'),
-  size = require('gulp-size'),
-  filter = require('gulp-filter'),
-  uglify = require('gulp-uglify'),
-  clean = require('gulp-clean'),
-  gulpif = require('gulp-if'),
-  autoprefixer = require('gulp-autoprefixer'),
-  browserSync = require('browser-sync').create(),
-  sass = require('gulp-sass'),
-  gutil = require( 'gulp-util'),
-  imagemin = require("gulp-imagemin"),
-  svgstore = require("gulp-svgstore"),
-  svgmin = require("gulp-svgmin"),
-  rename = require("gulp-rename"),
-  run = require("run-sequence");
+var gulp = require("gulp");
+var useref = require('gulp-useref');
+var csso = require('gulp-csso');
+var size = require('gulp-size');
+var filter = require('gulp-filter');
+var uglify = require('gulp-uglify');
+var clean = require('gulp-clean');
+var gulpif = require('gulp-if');
+var autoprefixer = require('gulp-autoprefixer');
+var browserSync = require('browser-sync').create();
+var sass = require('gulp-sass');
+var imagemin = require("gulp-imagemin");
+var svgstore = require("gulp-svgstore");
+var svgmin = require("gulp-svgmin");
+var rename = require("gulp-rename");
+var run = require("run-sequence");
+var ghpages = require("gh-pages");
 
 //===== Синхронизация =====//
 gulp.task('server', ['js', 'sass'], function() {
@@ -123,3 +123,5 @@ gulp.task("build", function(fn) {
     fn
   );
 });
+
+ghpages.publish("build");
