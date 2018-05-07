@@ -1,9 +1,10 @@
 {
   "name": "app-template",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Шаблон",
   "author": "Мурат Баркинхоев",
   "devDependencies": {
+    "@htmlacademy/editorconfig-cli": "^1.0.0",
     "browser-sync": "^2.11.1",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
@@ -25,12 +26,22 @@
     "webpack": "^4.7.0",
     "webpack-cli": "^2.1.2"
   },
+  "editorconfig-cli": [
+    "*.json",
+    "*.js",
+    "source/*.html",
+    "source/js/**/*.js",
+    "source/js-src/**/*.js",
+    "source/img/**/*.svg",
+    "source/sass/**/*.{sass,scss}"
+  ],
   "scripts": {
     "start": "gulp server",
     "build": "gulp build",
     "links": "gulp wiredep",
     "sprites": "gulp symbols",
     "deploy": "gulp deploy",
+    "editorconfig": "editorconfig-cli",
     "build-js": "webpack -p",
     "watch": "webpack --watch"
   }
