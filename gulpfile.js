@@ -14,7 +14,6 @@ var svgstore = require("gulp-svgstore");
 var svgmin = require("gulp-svgmin");
 var rename = require("gulp-rename");
 var run = require("run-sequence");
-var ghpages = require("gh-pages");
 
 //===== Синхронизация =====//
 gulp.task('server', ['js', 'sass'], function() {
@@ -123,5 +122,3 @@ gulp.task("build", function(fn) {
     fn
   );
 });
-
-ghpages.publish("build");
