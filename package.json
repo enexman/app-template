@@ -2,7 +2,7 @@
   "name": "app-template",
   "version": "1.4.1",
   "description": "Шаблон",
-  "author": "Мурат Баркинхоев",
+  "author": "",
   "devDependencies": {
     "@htmlacademy/editorconfig-cli": "^1.x",
     "browser-sync": "^2.24.4",
